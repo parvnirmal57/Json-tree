@@ -1,0 +1,49 @@
+<div class="k-m-10">
+  <kendo-textarea
+    [(ngModel)]="formattedJson"
+    placeholder="Formatted JSON/ String will appear here automatically"
+    class="output-text-area"
+    *ngIf="selectedFormat === 'Text'"
+    [class.output-full-screen]="isFullScreen"
+    [rows]="isFullScreen ? 40 : 28"
+  >
+    <kendo-textarea-prefix class="prefix-top k-bg-secondary">
+      <kendo-dropdownlist
+        [data]="['Text', 'Tree']"
+        [(ngModel)]="selectedFormat"
+        (valueChange)="convertOutputFormat($event)"
+        class="output-format-dropdown"
+      ></kendo-dropdownlist>
+
+      <button
+        kendoButton
+        class="suffix-clear-button"
+        fillMode="clear"
+        themeColor="light"
+        [svgIcon]="xSvg"
+        (click)="clearValue()"
+      ></button>
+
+      <button
+        kendoButton
+        class="suffix-copy-button"
+        fillMode="clear"
+        themeColor="light"
+        [svgIcon]="copySvg"
+        (click)="copyValue(); show()"
+      ></button>
+
+      <button
+        kendoButton
+        class="prefix-toggle-button"
+        fillMode="clear"
+        themeColor="light"
+        [svgIcon]="isFullScreen ? minimizeSvg : maximizeSvg"
+        (click)="toggleFullScreen()"
+      ></button>
+    </kendo-textarea-prefix>
+  </kendo-textarea>
+
+  <!-- JSON Tree View -->
+  <ngx-json-viewer *ngIf="selectedFormat === 'Tree'" [json]="jsonObject"></ngx-json-viewer>
+</div>
